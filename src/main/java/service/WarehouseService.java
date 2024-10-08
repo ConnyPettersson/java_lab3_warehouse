@@ -1,24 +1,26 @@
 package service;
-
-import entities.Category;
-import entities.Product;
-
-import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import entities.Category;
+import entities.Product;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @ApplicationScoped
 public class WarehouseService {
-    private final Warehouse warehouse;
+    private Warehouse warehouse;
     private final Lock lock = new ReentrantLock();
+
+    public WarehouseService() {
+    }
 
     @Inject
     public WarehouseService(Warehouse warehouse) {
         this.warehouse = warehouse;
     }
-
 
     public void addProduct(Product product) {
         System.out.println("WarehouseService: Adding product with ID: " + product.id());

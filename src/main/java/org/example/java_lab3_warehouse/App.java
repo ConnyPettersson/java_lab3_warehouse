@@ -37,10 +37,9 @@ public class App {
         warehouse.getAllProducts();
 
         System.out.println("Products sorted by name: ");
-        List<Product> sortedProducts = warehouse.getProductSortedByName();
-        for(Product product : sortedProducts) {
-            System.out.println(product);
-        }
+        List<Product> products = warehouse.getProductSortedByName();
+        products.forEach(System.out::println);
+
 
         System.out.println("Cymbals sorted by name: ");
         List<Product> sortedCymbals = warehouse.getProductsByCategory(Category.CYMBALS);
