@@ -7,13 +7,15 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import service.WarehouseService;
-
 import java.util.List;
+import org.jboss.logging.Logger;
 
 @Path("/warehouse")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class WarehouseResource {
+
+    private static final Logger logger = Logger.getLogger(WarehouseResource.class);
 
     @Inject
     private WarehouseService warehouseService;
@@ -46,6 +48,8 @@ public class WarehouseResource {
     @POST
     @Path("/products")
     public Response addProduct(Product product) {
+        logger.infof("Adding new product: %s", product);
+
         try {
             warehouseService.addProduct(product);
             return Response.status(Response.Status.CREATED).entity("Product added successfully").build();

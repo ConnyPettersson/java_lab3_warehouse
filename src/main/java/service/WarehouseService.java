@@ -5,8 +5,6 @@ import entities.Category;
 import entities.Product;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @ApplicationScoped
