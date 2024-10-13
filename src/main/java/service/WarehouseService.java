@@ -6,12 +6,14 @@ import entities.Product;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.List;
+import org.jboss.logging.Logger;
+import resource.WarehouseResource;
 
 @ApplicationScoped
 public class WarehouseService {
     private Warehouse warehouse;
     private final Lock lock = new ReentrantLock();
-
+    private static final Logger logger = Logger.getLogger(WarehouseResource.class);
     public WarehouseService() {
     }
 
@@ -21,7 +23,8 @@ public class WarehouseService {
     }
 
     public void addProduct(Product product) {
-        System.out.println("WarehouseService: Adding product with ID: " + product.id());
+        logger.info("WarehouseService: Adding product with ID: " + product.id());
+
         lock.lock();
         try {
             warehouse.addProduct(product);
