@@ -24,6 +24,12 @@ public class WarehouseResource {
     @Path("/products")
     public Response getAllProducts() {
         List<Product> products = warehouseService.getAllProducts();
+        logger.info("Fetching all products");
+        if (products.isEmpty()) {
+            logger.warn("No products found");
+            return Response.status(Response.Status.NOT_FOUND).entity("No products found").build();
+        }
+        logger.info("Found " + products.size() + " products");
         return Response.ok(products).build();
     }
 
@@ -32,8 +38,10 @@ public class WarehouseResource {
     public Response getProductById(@PathParam("id") int id) {
         Product product = warehouseService.getProductById(id);
         if (product != null) {
+            logger.info("Product was found with id: " + id);
             return Response.ok(product).build();
         } else {
+            logger.warn("Product was not found with id: " + id);
             return Response.status(Response.Status.NOT_FOUND).entity("Product not found").build();
         }
     }
@@ -42,7 +50,13 @@ public class WarehouseResource {
     @Path("/products/category/{category}")
     public Response getProductsByCategory(@PathParam("category")Category category) {
         List<Product> products = warehouseService.getProductByCategory(category);
+        if (!products.isEmpty()) {
+            logger.info("Products found for category: " + category);
         return Response.ok(products).build();
+        } else {
+            logger.warn("No products found for category: " + category);
+            return Response.status(Response.Status.NOT_FOUND).entity("No products found for this category").build();
+        }
     }
 
     @POST
