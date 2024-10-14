@@ -3,6 +3,7 @@ package resource;
 import entities.Category;
 import entities.Product;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -61,7 +62,7 @@ public class WarehouseResource {
 
     @POST
     @Path("/products")
-    public Response addProduct(Product product) {
+    public Response addProduct(@Valid Product product) {
         logger.infof("Adding new product: %s", product);
 
         try {
